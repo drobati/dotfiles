@@ -1,0 +1,194 @@
+" -----
+" VIMRC
+" -----
+scriptencoding utf-8
+
+" Setup Vundle
+call plug#begin('~/.vim/plugged')
+
+" Manage Plugins
+Plug 'Lokaltog/vim-easymotion'
+Plug 'SirVer/ultisnips'
+Plug 'airblade/vim-gitgutter'
+Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+Plug 'honza/vim-snippets'
+Plug 'jmcantrell/vim-virtualenv'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-peekaboo'
+Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
+"Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim' " Depends on webapi-vim
+Plug 'mfukar/robotframework-vim', {'for': 'robot'}
+Plug 'myusuf3/numbers.vim'
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'rking/ag.vim'
+Plug 'scrooloose/syntastic'
+Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-liquid'
+Plug 'tpope/vim-markdown', {'for': 'markdown'}
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-speeddating'
+Plug 'honza/dockerfile.vim'
+Plug 'bling/vim-airline'
+Plug 'jceb/vim-orgmode'
+Plug 'vim-scripts/utl.vim'
+
+" End Setup of Vundle
+call plug#end()
+filetype plugin indent on
+syntax enable
+
+" GUI
+set guioptions-=r
+set guioptions-=m
+set guioptions-=L
+set guioptions-=T
+set number
+set colorcolumn=81
+set textwidth=80
+set visualbell
+set list listchars=tab:▸\ ,trail:·,extends:»,precedes:«
+set columns=81                         " Set width of floating window.
+set lines=67                           " Set height of floating window.
+set cmdheight=1                        " Set command window to hieght of 1.
+
+" Indentation
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set nowrap
+set smartindent
+set autoindent
+set nosmarttab
+
+" Search
+set incsearch
+set hlsearch
+set ignorecase
+
+" Behaviors
+set backspace=2                        " delete over linebreaks
+set whichwrap+=<,>,h,l,[,]             " movements over linebreaks
+set report=0                           " count lines yanked/deleted
+let g:mapleader = ","
+set foldmethod=indent                  " fold based on indent
+au FileType python setlocal nofoldenable
+"set nofoldenable                       " don't fold by default
+set foldlevel=1                        " only close/open one foldlevel at a time
+augroup view
+autocmd BufWinLeave * silent! mkview   " save view when closing buffer
+autocmd BufWinEnter * silent! loadview " load view when opening buffer
+augroup END
+
+" Mappings
+                                       " Change pwd to file location.
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+                                       " Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+                                       " set working directory to file's path
+nnoremap <silent> <m-p> :lprevious <CR>
+nnoremap <silent> <m-n> :lnext <CR>
+
+nmap <leader>v :e $myvimrc
+nmap <leader>s :so $myvimrc
+                                       " Format json in current buffer or selection
+map <Leader>n :%!python -m json.tool<CR>
+
+" Disable Swap Files
+set nobackup                           " do not keep backups after close
+set nowritebackup                      " do not keep a backup while working
+set noswapfile                         " don't keep swp files either
+
+" Store Backup Elsewhere
+set backupdir=$HOME/.vim/backup        " store backups under ~/.vim/backup
+set backupcopy=yes                     " keep attributes of original file
+set backupskip=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
+set directory=~/.vim/swap,~/tmp,.      " keep swp files under ~/.vim/swap
+
+" Powerline
+set laststatus=2
+set rtp+=/home/drobati/.local/lib/python2.7/site-packages/powerline/bindings/vim
+
+" Style
+set t_Co=256                           " XTerm 256 color support.
+if has('gui_running')
+    set guifont=Lucida_Console:h11:cANSI
+    colorscheme Tomorrow-Night
+else
+    colorscheme Tomorrow-Night
+endif
+
+" -------------------------
+" LANGUAGE SPECIFIC OPTIONS
+" -------------------------
+
+au BufNewFile,BufRead VagrantFile* set filetype=ruby
+au BufNewFile,BufRead Dockerfile*  set filetype=dockerfile
+
+" C++
+set tags=./tags;/
+
+" -----------------------
+" PLUGIN SPECIFIC OPTIONS
+" -----------------------
+
+" Airline
+let g:airline_left_sep = ' '
+let g:airline_right_sep = ' '
+
+" EasyAlign
+vmap <Enter> <Plug>(EasyAlign)
+
+" EasyMotion
+let g:EasyMotion_do_mapping = 0       " Disable default mappings
+nmap s <Plug>(easymotion-bd-w)
+nmap t <Plug>(easymotion-t2)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+let g:EasyMotion_startofline      = 0  " keep cursor column when JK motion
+let g:EasyMotion_smartcase        = 1  " type `l` and match `l`&`L`
+let g:EasyMotion_use_smartsign_us = 1  " type `3` and match `3`&`#`
+
+" Gist
+"" sudo apt-get install xclip
+let g:gist_clip_command            = 'xclip -selection clipboard'
+let g:gist_detect_filetype         = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_browser_command         = 'firefox %URL%'
+let g:gist_show_privates           = 1
+let g:gist_post_private            = 1
+
+" Syntastic
+let g:syntastic_check_on_open   = 1
+let g:syntastic_error_symbol    = 'X'
+let g:syntastic_warning_symbol  = '!'
+let g:syntastic_auto_loc_list   = 2
+let g:syntastic_loc_list_height = 5
+
+" Fugitive
+nnoremap <leader>gs :Gstatus<cr>
+
+" Tagbar
+nnoremap <F8> :TagbarToggle<CR>
+
+" Gundo
+nnoremap <F5> :GundoToggle<CR>
+
+" Ultisnips
+let g:UltiSnipsExpandTrigger       = "<tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsEditSplit           = "vertical"
+let g:ultisnips_python_style       = "google"
