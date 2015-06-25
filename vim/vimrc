@@ -76,6 +76,7 @@ set backspace=2                        " delete over linebreaks
 set whichwrap+=<,>,h,l,[,]             " movements over linebreaks
 set report=0                           " count lines yanked/deleted
 let g:mapleader = ","
+set fileformats=unix
 set foldmethod=indent                  " fold based on indent
 au FileType python setlocal nofoldenable
 "set nofoldenable                       " don't fold by default
@@ -95,8 +96,8 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap <silent> <m-p> :lprevious <CR>
 nnoremap <silent> <m-n> :lnext <CR>
 
-nmap <leader>v :e $myvimrc
-nmap <leader>s :so $myvimrc
+nmap <leader>v :e $MYVIMRC
+nmap <leader>s :so $MYVIMRC
                                        " Format json in current buffer or selection
 map <Leader>n :%!python -m json.tool<CR>
 
@@ -118,10 +119,10 @@ set rtp+=/home/drobati/.local/lib/python2.7/site-packages/powerline/bindings/vim
 " Style
 set t_Co=256                           " XTerm 256 color support.
 if has('gui_running')
-    set guifont=Lucida_Console:h11:cANSI
-    colorscheme Tomorrow-Night
+    set guifont=Ubuntu\ Mono\ 12
+    silent! colorscheme Tomorrow-Night
 else
-    colorscheme Tomorrow-Night
+    silent! colorscheme Tomorrow-Night
 endif
 
 " -------------------------
