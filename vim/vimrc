@@ -8,34 +8,35 @@ call plug#begin('~/.vim/plugged')
 
 " Manage Plugins
 Plug 'Lokaltog/vim-easymotion'
-Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'airblade/vim-gitgutter'
-Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-Plug 'honza/vim-snippets'
+Plug 'bling/vim-airline'
+Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim/' }
+Plug 'elzr/vim-json',               { 'for': 'json' }
+Plug 'fatih/vim-go',                { 'for': 'go' }
+Plug 'honza/dockerfile.vim',        { 'for': 'dockerfile' }
+Plug 'jceb/vim-orgmode',            { 'for': 'org' }
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align',     { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+Plug 'junegunn/vim-journal',        { 'for': 'journal' }
 Plug 'junegunn/vim-peekaboo'
-Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
+Plug 'kchmck/vim-coffee-script',    { 'for': 'coffee' }
 "Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
-Plug 'mattn/webapi-vim'
-Plug 'mattn/gist-vim' " Depends on webapi-vim
-Plug 'mfukar/robotframework-vim', {'for': 'robot'}
+Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
+Plug 'mfukar/robotframework-vim',   { 'for': 'robot' }
 Plug 'myusuf3/numbers.vim'
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'pangloss/vim-javascript',     { 'for': 'javascript' }
 Plug 'rking/ag.vim'
 Plug 'scrooloose/syntastic'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-liquid'
-Plug 'tpope/vim-markdown', {'for': 'markdown'}
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-markdown',          { 'for': 'markdown' }
 Plug 'tpope/vim-speeddating'
-Plug 'honza/dockerfile.vim'
-Plug 'bling/vim-airline'
-Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-surround'
 Plug 'vim-scripts/utl.vim'
 
 " End Setup of Vundle
@@ -49,6 +50,7 @@ set guioptions-=m
 set guioptions-=L
 set guioptions-=T
 set number
+set norelativenumber
 set colorcolumn=81
 set textwidth=80
 set visualbell
@@ -76,10 +78,9 @@ set backspace=2                        " delete over linebreaks
 set whichwrap+=<,>,h,l,[,]             " movements over linebreaks
 set report=0                           " count lines yanked/deleted
 let g:mapleader = ","
-set fileformats=unix
 set foldmethod=indent                  " fold based on indent
-au FileType python setlocal nofoldenable
-"set nofoldenable                       " don't fold by default
+set nofoldenable                       " don't fold by default
+au FileType org setlocal foldenable
 set foldlevel=1                        " only close/open one foldlevel at a time
 augroup view
 autocmd BufWinLeave * silent! mkview   " save view when closing buffer
@@ -96,8 +97,8 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap <silent> <m-p> :lprevious <CR>
 nnoremap <silent> <m-n> :lnext <CR>
 
-nmap <leader>v :e $MYVIMRC
-nmap <leader>s :so $MYVIMRC
+nmap <leader>v :e $myvimrc
+nmap <leader>s :so $myvimrc
                                        " Format json in current buffer or selection
 map <Leader>n :%!python -m json.tool<CR>
 
@@ -119,10 +120,10 @@ set rtp+=/home/drobati/.local/lib/python2.7/site-packages/powerline/bindings/vim
 " Style
 set t_Co=256                           " XTerm 256 color support.
 if has('gui_running')
-    set guifont=Ubuntu\ Mono\ 12
-    silent! colorscheme Tomorrow-Night
+    set guifont=Lucida_Console:h11:cANSI
+    colorscheme Tomorrow-Night-Eighties
 else
-    silent! colorscheme Tomorrow-Night
+    colorscheme Tomorrow-Night-Eighties
 endif
 
 " -------------------------
@@ -131,6 +132,8 @@ endif
 
 au BufNewFile,BufRead VagrantFile* set filetype=ruby
 au BufNewFile,BufRead Dockerfile*  set filetype=dockerfile
+au BufNewFile,BufRead *.journal  set filetype=journal
+au BufNewFile,BufRead *.md set filetype=markdown
 
 " C++
 set tags=./tags;/
@@ -193,3 +196,20 @@ let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit           = "vertical"
 let g:ultisnips_python_style       = "google"
+
+function! s:goyo_enter()
+  NumbersDisable
+  set nonumber
+  set norelativenumber
+  colorscheme Tomorrow
+endfunction
+
+function! s:goyo_leave()
+  set number
+  set norelativenumber
+  NumbersEnable
+  colorscheme Tomorrow-Night-Eighties
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
