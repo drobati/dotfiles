@@ -3,7 +3,7 @@
 " -----
 scriptencoding utf-8
 
-" Setup Vundle
+" Setup junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 
 " Manage Plugins
@@ -39,7 +39,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/utl.vim'
 
-" End Setup of Vundle
+" End setup of junegunn/vim-plug
 call plug#end()
 filetype plugin indent on
 syntax enable
@@ -55,9 +55,9 @@ set colorcolumn=81
 set textwidth=80
 set visualbell
 set list listchars=tab:▸\ ,trail:·,extends:»,precedes:«
-set columns=81                         " Set width of floating window.
-set lines=67                           " Set height of floating window.
-set cmdheight=1                        " Set command window to hieght of 1.
+set columns=81                         " set width of floating window.
+set lines=67                           " set height of floating window.
+set cmdheight=1                        " set command window to hieght of 1.
 
 " Indentation
 set expandtab
@@ -80,7 +80,7 @@ set report=0                           " count lines yanked/deleted
 let g:mapleader = ","
 set foldmethod=indent                  " fold based on indent
 set nofoldenable                       " don't fold by default
-au FileType org setlocal foldenable
+au FileType org setlocal foldenable    " enable fold for org-mode
 set foldlevel=1                        " only close/open one foldlevel at a time
 augroup view
 autocmd BufWinLeave * silent! mkview   " save view when closing buffer
@@ -88,32 +88,32 @@ autocmd BufWinEnter * silent! loadview " load view when opening buffer
 augroup END
 
 " Mappings
-                                       " Change pwd to file location.
+                                       " change pwd to file location.
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
-                                       " Move visual block
+                                       " move visual block
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
-                                       " set working directory to file's path
+                                       " search lint errors
 nnoremap <silent> <m-p> :lprevious <CR>
 nnoremap <silent> <m-n> :lnext <CR>
-
+                                       " open .vimrc & then load.
 nmap <leader>v :e $myvimrc
 nmap <leader>s :so $myvimrc
-                                       " Format json in current buffer or selection
+                                       " format json in current buffer or selection
 map <Leader>n :%!python -m json.tool<CR>
 
-" Disable Swap Files
+" Backup Files [Disabled]
 set nobackup                           " do not keep backups after close
 set nowritebackup                      " do not keep a backup while working
+"set backupdir=$HOME/.vim/backup        " store backups under ~/.vim/backup
+"set backupcopy=yes                     " keep attributes of original file
+"set backupskip=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
+
+" Swap Files [Disabled]
 set noswapfile                         " don't keep swp files either
+"set directory=~/.vim/swap,~/tmp,.      " keep swp files under ~/.vim/swap
 
-" Store Backup Elsewhere
-set backupdir=$HOME/.vim/backup        " store backups under ~/.vim/backup
-set backupcopy=yes                     " keep attributes of original file
-set backupskip=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
-set directory=~/.vim/swap,~/tmp,.      " keep swp files under ~/.vim/swap
-
-" Powerline
+" Powerline (TODO deprecate for airline)
 set laststatus=2
 set rtp+=/home/drobati/.local/lib/python2.7/site-packages/powerline/bindings/vim
 
@@ -121,10 +121,8 @@ set rtp+=/home/drobati/.local/lib/python2.7/site-packages/powerline/bindings/vim
 set t_Co=256                           " XTerm 256 color support.
 if has('gui_running')
     set guifont=Lucida_Console:h11:cANSI
-    colorscheme Tomorrow-Night-Eighties
-else
-    colorscheme Tomorrow-Night-Eighties
 endif
+colorscheme Tomorrow-Night-Eighties
 
 " -------------------------
 " LANGUAGE SPECIFIC OPTIONS
@@ -132,8 +130,8 @@ endif
 
 au BufNewFile,BufRead VagrantFile* set filetype=ruby
 au BufNewFile,BufRead Dockerfile*  set filetype=dockerfile
-au BufNewFile,BufRead *.journal  set filetype=journal
-au BufNewFile,BufRead *.md set filetype=markdown
+au BufNewFile,BufRead *.journal    set filetype=journal
+au BufNewFile,BufRead *.md         set filetype=markdown
 
 " C++
 set tags=./tags;/
