@@ -96,9 +96,14 @@ vnoremap K :m '<-2<CR>gv=gv
                                        " search lint errors
 nnoremap <silent> <m-p> :lprevious <CR>
 nnoremap <silent> <m-n> :lnext <CR>
-                                       " open .vimrc & then load.
-nmap <leader>v :e $myvimrc
-nmap <leader>s :so $myvimrc
+                                       
+if has("win32")                        " open .vimrc & then load.
+    nmap <leader>v :e $myvimrc
+    nmap <leader>s :so $myvimrc
+else
+    nmap <leader>v :e $MYVIMRC
+    nmap <leader>s :so $MYVIMRC
+endif
                                        " format json in current buffer or selection
 map <Leader>n :%!python -m json.tool<CR>
 
