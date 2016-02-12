@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+if [ `which fortune` ]; then
+    echo ""
+    echo "\033[1;38;5;214mHow to be an Evil Overlord:\033[0;38;5;214m"
+    fortune $HOME/src/projects/dotfiles/fortunes/overlord.u8
+    echo "\033[0m"
+fi
+

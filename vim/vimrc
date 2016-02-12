@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
 " Manage Plugins
 Plug 'Lokaltog/vim-easymotion'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'justinj/vim-react-snippets'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim/' }
@@ -17,6 +18,7 @@ Plug 'fatih/vim-go',                { 'for': 'go' }
 Plug 'honza/dockerfile.vim',        { 'for': 'dockerfile' }
 Plug 'jceb/vim-orgmode',            { 'for': 'org' }
 Plug 'jmcantrell/vim-virtualenv'
+Plug 'fatih/vim-go'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align',     { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
@@ -27,6 +29,7 @@ Plug 'kchmck/vim-coffee-script',    { 'for': 'coffee' }
 Plug 'majutsushi/tagbar'
 Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
 Plug 'mfukar/robotframework-vim',   { 'for': 'robot' }
+Plug 'mxw/vim-jsx',                 { 'for': 'jsx'}
 Plug 'myusuf3/numbers.vim'
 Plug 'pangloss/vim-javascript',     { 'for': 'javascript' }
 Plug 'rking/ag.vim'
@@ -96,7 +99,7 @@ vnoremap K :m '<-2<CR>gv=gv
                                        " search lint errors
 nnoremap <silent> <m-p> :lprevious <CR>
 nnoremap <silent> <m-n> :lnext <CR>
-                                       
+
 if has("win32")                        " open .vimrc & then load.
     nmap <leader>v :e $myvimrc
     nmap <leader>s :so $myvimrc
@@ -125,7 +128,7 @@ set rtp+=/home/drobati/.local/lib/python2.7/site-packages/powerline/bindings/vim
 " Style
 set t_Co=256                           " XTerm 256 color support.
 if has('gui_running')
-    set guifont=Lucida_Console:h11:cANSI
+    set guifont=DejaVu\ Sans\ Mono\ 10
 endif
 colorscheme Tomorrow-Night-Eighties
 
@@ -200,6 +203,10 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit           = "vertical"
 let g:ultisnips_python_style       = "google"
 
+" jsx
+let g:jsx_ext_required = 0
+
+" Others
 function! s:goyo_enter()
   NumbersDisable
   set nonumber

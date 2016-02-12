@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+if [ `which fortune` ]; then
+    echo "\033[0;38;5;214m"
+    fortune $HOME/src/projects/dotfiles/fortunes/taow
+    echo -n "\033[0m"
+fi

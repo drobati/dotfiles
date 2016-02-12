@@ -48,10 +48,11 @@ beautiful.init("/home/drobati/.config/awesome/themes/nice-and-clean-theme/theme.
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
-editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
-volumeup = "amixer -D pulse sset Master 5%+"
-volumedown = "amixer -D pulse sset Master 5%-"
+editor = "gvim"
+editor_cmd = editor
+volumeup = "amixer -R -D pulse sset Master 5%+"
+volumedown = "amixer -R -D pulse sset Master 5%-"
+lockscreen = "dm-tool lock"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -89,9 +90,8 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names = { "a", "b", "c", "d", "e", "f", "chat", "web", "serve" },
-    layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1],
-               layouts[1], layouts[2], layouts[1], layouts[1] }
+    names = { "chat", "web", "code", "term", "serve" },
+    layout = { layouts[10], layouts[9], layouts[9], layouts[1], layouts[7]}
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -204,35 +204,55 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
-    -- BAT widget
-    batwidget = awful.widget.progressbar()
-    batwidget:set_width(6)
-    batwidget:set_height(10)
-    batwidget:set_vertical(true)
-    batwidget:set_background_color("#101010")
-    batwidget:set_border_color(nil)
-    batwidget:set_color("#66CD00")
-    vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
+
+    -- VOL widget
+    volwidget = awful.widget.progressbar()
+    volwidget:set_width(8)
+    volwidget:set_height(10)
+    volwidget:set_vertical(true)
+    volwidget:set_background_color("#101010")
+    volwidget:set_border_color(nil)
+    volwidget:set_color("#66CD00")
+    vicious.register(volwidget, vicious.widgets.volume, "$1", 1, "Master")
+
     -- CPU Widget
     cpuwidget = awful.widget.graph()
     cpuwidget:set_width(50)
     cpuwidget:set_background_color("#101010")
     cpuwidget:set_color("#D02E54")
     vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
+
     -- Memory Widget
     memwidget = awful.widget.progressbar()
-    memwidget:set_width(8)
+    memwidget:set_width(4)
     memwidget:set_height(10)
     memwidget:set_vertical(true)
     memwidget:set_background_color("#101010")
     memwidget:set_border_color(nil)
     memwidget:set_color("#2FD1AB")
     vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
+
+    -- BAT widget
+    batwidget = awful.widget.progressbar()
+    batwidget:set_width(3)
+    batwidget:set_height(10)
+    batwidget:set_vertical(true)
+    batwidget:set_background_color("#101010")
+    batwidget:set_border_color(nil)
+    batwidget:set_color("#FFFF66")
+    vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
+
+    -- Spacer
+    spacer = wibox.widget.textbox()
+    spacer:set_text(" ")
+
     -- Layout
     right_layout:add(mytextclock)
-    right_layout:add(batwidget)
+    right_layout:add(volwidget)
     right_layout:add(cpuwidget)
     right_layout:add(memwidget)
+    right_layout:add(batwidget)
+    right_layout:add(spacer)
     right_layout:add(mylayoutbox[s])
 
     -- Now bring it all together (with the tasklist in the middle)
@@ -285,7 +305,7 @@ globalkeys = awful.util.table.join(
             end
         end),
 
-    -- Standard program
+    -- Standard prograLucida_Console:h11:cANSIm
     awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
@@ -305,16 +325,19 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "'", function () awful.util.spawn(volumeup)   end),
     awful.key({ modkey,           }, ";", function () awful.util.spawn(volumedown) end),
 
+    -- Lock Screen
+    awful.key({ modkey,           }, "0", function () awful.util.spawn(lockscreen) end),
+
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
-    awful.key({ modkey }, "x",
-              function ()
-                  awful.prompt.run({ prompt = "Run Lua code: " },
-                  mypromptbox[mouse.screen].widget,
-                  awful.util.eval, nil,
-                  awful.util.getdir("cache") .. "/history_eval")
-              end),
+    --awful.key({ modkey }, "x",
+              --function ()
+                  --awful.prompt.run({ prompt = "Run Lua code: " },
+                  --mypromptbox[mouse.screen].widget,
+                  --awful.util.eval, nil,
+                  --awful.util.getdir("cache") .. "/history_eval")
+              --end),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end)
 )
