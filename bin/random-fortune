@@ -1,0 +1,26 @@
+#!/bin/zsh
+
+randFortune () {
+    cd /Users/drobati/.dotfiles/fortunes
+    case "$((RANDOM % 3))" in
+        0 )
+            fortune discworld
+            ;;
+        1 )
+            fortune lit
+            ;;
+        2 )
+            fortune taow
+            ;;
+        *)
+            echo "Bad usage"
+            exit 1
+    esac
+}
+
+if [ `which fortune` ]; then
+    echo "\033[1;33m"
+    randFortune
+    echo -n "\033[0m"
+    echo
+fi
