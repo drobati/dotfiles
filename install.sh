@@ -11,7 +11,7 @@ user () {
 }
 
 success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+  printf "\r\033[2K  [ \033[00;32mPASS\033[0m ] $1\n"
 }
 
 fail () {
@@ -23,31 +23,50 @@ fail () {
 link () {
   from="$1"
   to="$2"
+
   rm -f "$to"
+
   ln -s "$from" "$to"
 }
 
-cd $DOTFILES_ROOT
+linkfolder () {
+  from="$1"
+  to="$2"
+  name="$3"
+
+  link "$from" "$to"
+
+  if [[ -d $to ]]; then
+    success "Linked $name/"
+  else
+    fail "No $name/"
+  fi
+}
+
+linkfile () {
+  from="$1"
+  to="$2"
+  name="$3"
+
+  link "$from" "$to"
+
+  if [[ -f $to ]]; then
+    success "Linked $name/"
+  else
+    fail "No $name/"
+  fi
+}
 
 if [[ -d "$DOTFILES_ROOT" ]]; then
+  cd $DOTFILES_ROOT
   info "Symlinking dotfiles from $DOTFILES_ROOT"
 else
   fail "$DOTFILES_ROOT does not exist"
   exit 1
 fi
 
-link "$DOTFILES_ROOT/vim" "$HOME/.vim"
+linkfolder "$DOTFILES_ROOT/vim" "$HOME/.vim" ".vim"
 
-if [[ -d "$HOME/.vim" ]]; then
-  success "Linked .vim/"
-else
-  fail "No .vim/"
-fi
+linkfile "$DOTFILES_ROOT/vim/vimrc" "$HOME/.vimrc" ".vimrc"
 
-link "$DOTFILES_ROOT/vim/vimrc" "$HOME/.vimrc"
-
-if [[ -f "$HOME/.vimrc" ]]; then
-  success "Linked .vimrc"
-else
-  fail "No .vimrc"
-fi
+linkfile "$DOTFILES_ROOT/bin/artofwar-fortune" "$HOME/bin/artofwar-fortune" "artofwar-fortune"
