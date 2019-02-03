@@ -54,6 +54,12 @@ https://github.com/macvim-dev/macvim/wiki/FAQ#how-to-use-pythonrubylua-interface
 
 This is to remind me of why to install MacVim with brew.
 
+Add it to your applications folder so spotlight can find it.
+```
+mv /usr/local/Cellar/macvim/7.3-65/MacVim.app /Applications/  
+ln -s /Applications/MacVim.app /usr/local/Cellar/macvim/7.3-65/
+```
+
 ## Bash
 
 - shellcheck
