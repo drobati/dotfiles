@@ -137,6 +137,7 @@ https://golang.org/dl/
 # Clone and Install Dotfiles
 
 ```
-git clone https://github.com/drobati/dotfiles.git .dotfiles
+git clone git@github.com:drobati/dotfiles.git .dotfiles
+cd .dotfiles
 ./install.sh
 ```
