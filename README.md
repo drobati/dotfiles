@@ -20,13 +20,13 @@ https://brew.sh
 ## Quality of Life
 
 - ag
-- bash-completion
 - colordiff
 - cscope
 - curl
 - exa
 - fasd
 - fzf
+- git
 - git-lfs
 - gnupg
 - grc
@@ -62,6 +62,15 @@ ln -s /Applications/MacVim.app /usr/local/Cellar/macvim/7.3-65/
 
 ## Bash
 
+Upgrade to latest bash
+
+```
+brew install bash
+sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells' 
+chsh -s /usr/local/bin/bash
+```
+
+- bash-completion@2
 - shellcheck
 
 ## Javascript
@@ -81,12 +90,30 @@ ln -s /Applications/MacVim.app /usr/local/Cellar/macvim/7.3-65/
 - sqlite
 - redis
 
+## Security
+
+```
+pip3 install stronghold
+```
+
 ## Foolery
 
 - emojify
 - fortune
 - nethack
 - spark
+- lolcat
+- rtv
+
+```
+yarn global add splash-cli
+```
+
+## Arial screensaver
+
+```
+brew cask install aerial
+```
 
 # Generate SSH and GPG keys
 
