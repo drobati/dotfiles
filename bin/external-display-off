@@ -1,2 +1,0 @@
-#!/bin/bash
-xrandr --output VGA1 --off

@@ -1,4 +1,0 @@
-#install
-cd $HOME/src/learning/reactflix-and-chill
-npm install
-npm start
