@@ -76,3 +76,5 @@ linkfile "$DOTFILES_ROOT/.bash_profile" "$HOME/.bash_profile" ".bash_profile"
 info "Creating typical dir structures."
 mkdir -p $HOME/src/projects
 mkdir -p $HOME/src/tools
+
+echo ''
