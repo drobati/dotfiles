@@ -152,10 +152,12 @@ git config --global user.signingkey derek.robati@gmail.com
 
 # Install Favorite Software
 
-## Install Source Code Pro
+## Install Fonts
 
 ```
-brew tap homebrew/cask-fonts && brew cask install font-source-code-pro
+brew tap homebrew/cask-fonts
+brew cask install font-fira-code
+brew cask install font-source-code-pro
 ```
 
 ## Install VSCode
