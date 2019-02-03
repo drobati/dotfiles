@@ -166,6 +166,26 @@ https://github.com/newmarcel/KeepingYouAwake
 brew cask install keepingyouawake
 ```
 
+## Install bearded-spice
+
+https://github.com/beardedspice/beardedspice
+
+## Shifty
+
+https://shifty.natethompson.io/en/
+
+## Night Owl
+
+https://nightowl.kramser.xyz
+
+## KeyCaster
+
+https://github.com/keycastr/keycastr
+
+## iStatMenus
+
+https://bjango.com/mac/istatmenus/
+
 # Clone and Install Dotfiles
 
 ```
