@@ -158,6 +158,10 @@ Also double check bold fonts is turned on.
 
 https://github.com/newmarcel/KeepingYouAwake
 
+```
+brew cask install keepingyouawake
+```
+
 # Clone and Install Dotfiles
 
 ```
