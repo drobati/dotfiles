@@ -161,3 +161,11 @@ git clone git@github.com:drobati/dotfiles.git .dotfiles
 cd .dotfiles
 ./install.sh
 ```
+
+# Configure Software
+
+## Configure MacVim
+
+```
+:PlugInstall
+```
