@@ -18,13 +18,51 @@ https://brew.sh
 
 # Install Favorite Brew Packages
 
+## Quality of Life
+
+- bash-completion
+- colordiff
+- curl
+- exa
+- fasd
+- fzf
+- git-lfs
 - gnupg
+- htop
 - jq
+- ssh-copy-id
 - tldr
+- tmux
+- macvim
+- neofetch
+- ranger
+- rename
+
+## Bash
+
+- shellcheck
+
+## Javascript
+
+- nvm
+
+## Go
+
+- delve
+
+## Database
+
 - mycli
 - pgcli
-- nvm
-- ssh-copy-id
+- sqlite
+- redis
+
+## Foolery
+
+- emojify
+- fortune
+- nethack
+- spark
 
 # Generate SSH and GPG keys
 
