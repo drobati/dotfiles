@@ -111,6 +111,7 @@ yarn global add splash-cli
 
 ## Arial screensaver
 
+https://github.com/JohnCoates/Aerial
 ```
 brew cask install aerial
 ```
