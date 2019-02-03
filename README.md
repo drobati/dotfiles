@@ -1,10 +1,8 @@
 # dotfiles
 
-Most of this configuration was for a linux distro and is old as dirt so I think it's time to update.
+This is my macOS setup guide. Since I'm doing it with a fresh mac, I'm noting everything for future macs.
 
-# Fresh System
-
-Here's a todo-list to remind myself of things to do on a fresh system.
+# Overview
 
 - [ ] Install Brew
 - [ ] Install Favorite Packages
@@ -20,23 +18,38 @@ https://brew.sh
 
 ## Quality of Life
 
+- ag
 - bash-completion
 - colordiff
+- cscope
 - curl
 - exa
 - fasd
 - fzf
 - git-lfs
 - gnupg
+- grc
+- hr
 - htop
 - jq
 - ssh-copy-id
+- termtosvg
+- thefuck
+- tig
 - tldr
 - tmux
+- tree
 - macvim
 - neofetch
 - ranger
 - rename
+- wget
+
+## MacVim
+
+https://github.com/macvim-dev/macvim/wiki/FAQ#how-to-use-pythonrubylua-interface-in-macvim
+
+This is to remind me of why to install MacVim with brew.
 
 ## Bash
 
@@ -45,6 +58,7 @@ https://brew.sh
 ## Javascript
 
 - nvm
+- yarn
 
 ## Go
 
@@ -53,6 +67,7 @@ https://brew.sh
 ## Database
 
 - mycli
+- innotop
 - pgcli
 - sqlite
 - redis
@@ -107,3 +122,14 @@ https://www.spectacleapp.com
 ## Install Bartender
 
 https://www.macbartender.com
+
+## Install Golang
+
+https://golang.org/dl/
+
+# Clone and Install Dotfiles
+
+```
+git clone https://github.com/drobati/dotfiles.git .dotfiles
+./install.sh
+```
