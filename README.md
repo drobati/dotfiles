@@ -152,6 +152,7 @@ open *
 Open Terminal config, set New window with profile to Tomorrow Night Eighties.
 Also open Profiles and set default to Tomorrow Night Eighties.
 Also change font on profiles to Source Code Pro Regular 12.
+Also double check bold fonts is turned on.
 
 # Clone and Install Dotfiles
 
