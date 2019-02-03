@@ -4,9 +4,10 @@ This is my macOS setup guide. Since I'm doing it with a fresh mac, I'm noting ev
 
 # Overview
 
-- [ ] Install Brew
+- [ ] Install Homebrew
 - [ ] Install Favorite Packages
 - [ ] Generate SSH and GPG keys
+- [ ] Configure Git
 - [ ] Install Favorite Software
 - [ ] Clone and Install Dotfiles
 
@@ -40,6 +41,8 @@ https://brew.sh
 - tmux
 - tree
 - macvim
+- mas
+- m-cli
 - neofetch
 - ranger
 - rename
@@ -110,6 +113,7 @@ gpg --armor --export derek.robati@gmail.com
 ```
 git config --global user.name "Derek Robati"
 git config --global user.email derek.robati@gmail.com
+git config --global user.signingkey derek.robati@gmail.com
 ```
 
 # Install Favorite Software
