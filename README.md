@@ -105,6 +105,13 @@ gpg --list-secret-keys --keyid-format LONG
 gpg --armor --export derek.robati@gmail.com
 ```
 
+# Configure git
+
+```
+git config --global user.name "Derek Robati"
+git config --global user.email derek.robati@gmail.com
+```
+
 # Install Favorite Software
 
 ## Install VSCode
