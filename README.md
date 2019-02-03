@@ -154,6 +154,10 @@ Also open Profiles and set default to Tomorrow Night Eighties.
 Also change font on profiles to Source Code Pro Regular 12.
 Also double check bold fonts is turned on.
 
+## Install KeepingYouAwake
+
+https://github.com/newmarcel/KeepingYouAwake
+
 # Clone and Install Dotfiles
 
 ```
@@ -169,3 +173,13 @@ cd .dotfiles
 ```
 :PlugInstall
 ```
+
+## Configure Safari
+
+### Install ublock origin
+
+https://github.com/el1t/uBlock-Safari#installation
+
+### Install svim
+
+https://github.com/flipxfx/sVim
