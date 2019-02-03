@@ -114,6 +114,12 @@ git config --global user.email derek.robati@gmail.com
 
 # Install Favorite Software
 
+## Install Source Code Pro
+
+```
+brew tap homebrew/cask-fonts && brew cask install font-source-code-pro
+```
+
 ## Install VSCode
 
 https://code.visualstudio.com
@@ -133,6 +139,19 @@ https://www.macbartender.com
 ## Install Golang
 
 https://golang.org/dl/
+
+## Install tomorrow-night themes
+
+```
+cd src/tools
+git clone git@github.com:chriskempson/tomorrow-theme.git
+cd tomorrow-theme/OS\ X\ Terminal/
+open *
+```
+
+Open Terminal config, set New window with profile to Tomorrow Night Eighties.
+Also open Profiles and set default to Tomorrow Night Eighties.
+Also change font on profiles to Source Code Pro Regular 12.
 
 # Clone and Install Dotfiles
 
