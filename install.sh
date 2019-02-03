@@ -68,5 +68,3 @@ fi
 linkfolder "$DOTFILES_ROOT/vim" "$HOME/.vim" ".vim"
 
 linkfile "$DOTFILES_ROOT/vim/vimrc" "$HOME/.vimrc" ".vimrc"
-
-linkfile "$DOTFILES_ROOT/bin/artofwar-fortune" "$HOME/bin/artofwar-fortune" "artofwar-fortune"
