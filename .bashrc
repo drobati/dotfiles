@@ -1,5 +1,4 @@
-# token to be moved
-export HOMEBREW_GITHUB_API_TOKEN="78910a5b3a7883f231f391467c8d308fbe007020"
+source $HOME/lib/secrets
 
 # bin
 export PATH=$HOME/bin:$PATH
@@ -36,15 +35,9 @@ title() {
 PS1="\\[\\033[1;31m\\]\\W\\[\\033[1;33m\\]\$(parse_git_branch) \\[\\033[1;34m\\]λ\\[\\033[0m\\] "
 export PS1
 
-<<<<<<< Updated upstream
 # bash completion
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-=======
-export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-
->>>>>>> Stashed changes
 
 # setup thefuck
 eval "$(thefuck --alias)"
