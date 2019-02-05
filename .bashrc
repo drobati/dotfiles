@@ -5,19 +5,6 @@ export HOMEBREW_GITHUB_API_TOKEN="nope"
 export PATH=$HOME/bin:$PATH
 #export PATH=$HOME/.local/bin:$PATH
 
-# mysql
-export PATH=/usr/local/mysql/bin:$PATH
-export PATH=/usr/local/mysql/support-files:$PATH
-
-# verified as fuck
-if test -f ~/.gnupg/.gpg-agent-info -a -n "$(pgrep gpg-agent)"; then
-    # shellcheck source=/dev/null
-    source ~/.gnupg/.gpg-agent-info
-    export GPG_AGENT_INFO
-else
-    eval "$(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)"
-fi
-
 # editor
 export EDITOR='vim'
 
@@ -49,10 +36,8 @@ PS1="\\[\\033[1;31m\\]\\W\\[\\033[1;33m\\]\$(parse_git_branch) \\[\\033[1;34m\\]
 export PS1
 
 # bash completion
-if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
-    # shellcheck source=/dev/null
-    source $(brew --prefix)/etc/bash_completion
-fi
+export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 # setup thefuck
 eval "$(thefuck --alias)"
