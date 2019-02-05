@@ -5,7 +5,7 @@ This is my macOS setup guide. Since I'm doing it with a fresh mac, I'm noting ev
 # Overview
 
 - [ ] Install Homebrew
-- [ ] Install Favorite Packages
+- [ ] Install Packages
 - [ ] Generate SSH and GPG keys
 - [ ] Configure Git
 - [ ] Install Favorite Software
@@ -15,40 +15,21 @@ This is my macOS setup guide. Since I'm doing it with a fresh mac, I'm noting ev
 
 https://brew.sh
 
-# Install Favorite Brew Packages
+# Install Brew Packages
 
 ## Quality of Life
 
-- ag
-- colordiff
-- cscope
-- curl
-- exa
-- fasd
-- fzf
-- git
-- git-lfs
-- gnupg
-- grc
-- hr
-- htop
-- jq
-- ssh-copy-id
-- termtosvg
-- thefuck
-- tig
-- tldr
-- tmux
-- tree
-- macvim
-- mas
-- m-cli
-- neofetch
-- ranger
-- rename
-- wget
+```
+brew install ag bash-completion colordiff cscope curl exa fasd fzf git-lfs \
+    gnupg grc hr htop jq ssh-copy-id termtosvg thefuck tig tldr tmux tree \
+    macvim neofetch ranger rename wget
+```
 
 ## MacVim
+
+```
+brew install macvim
+```
 
 https://github.com/macvim-dev/macvim/wiki/FAQ#how-to-use-pythonrubylua-interface-in-macvim
 
@@ -58,6 +39,12 @@ Add it to your applications folder so spotlight can find it.
 ```
 mv /usr/local/Cellar/macvim/7.3-65/MacVim.app /Applications/  
 ln -s /Applications/MacVim.app /usr/local/Cellar/macvim/7.3-65/
+```
+
+Install the plugins.
+
+```
+:PlugInstall
 ```
 
 ## Bash
@@ -94,6 +81,12 @@ chsh -s /usr/local/bin/bash
 
 ```
 pip3 install stronghold
+```
+
+## Infrastructure
+
+```
+brew tap heroku/brew && brew install heroku
 ```
 
 ## Foolery
@@ -168,6 +161,16 @@ https://code.visualstudio.com
 
 TODO
 
+## Configure Safari
+
+### Install ublock origin
+
+https://github.com/el1t/uBlock-Safari#installation
+
+### Install svim
+
+https://github.com/flipxfx/sVim
+
 ## Install Spectacle
 
 https://www.spectacleapp.com
@@ -230,20 +233,4 @@ cd .dotfiles
 ./install.sh
 ```
 
-# Configure Software
-
-## Configure MacVim
-
-```
-:PlugInstall
-```
-
-## Configure Safari
-
-### Install ublock origin
-
-https://github.com/el1t/uBlock-Safari#installation
-
-### Install svim
-
-https://github.com/flipxfx/sVim
+Hack the planet.

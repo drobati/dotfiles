@@ -1,5 +1,5 @@
 # token to be moved
-export HOMEBREW_GITHUB_API_TOKEN="nope"
+export HOMEBREW_GITHUB_API_TOKEN="78910a5b3a7883f231f391467c8d308fbe007020"
 
 # bin
 export PATH=$HOME/bin:$PATH
@@ -22,6 +22,7 @@ alias safari='open -a Safari'
 alias dc='docker-compose'
 alias g='git'
 
+
 # for prompt later
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
@@ -35,9 +36,15 @@ title() {
 PS1="\\[\\033[1;31m\\]\\W\\[\\033[1;33m\\]\$(parse_git_branch) \\[\\033[1;34m\\]λ\\[\\033[0m\\] "
 export PS1
 
+<<<<<<< Updated upstream
 # bash completion
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+=======
+export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
+>>>>>>> Stashed changes
 
 # setup thefuck
 eval "$(thefuck --alias)"

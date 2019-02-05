@@ -73,6 +73,10 @@ linkfile "$DOTFILES_ROOT/.bashrc" "$HOME/.bashrc" ".bashrc"
 
 linkfile "$DOTFILES_ROOT/.bash_profile" "$HOME/.bash_profile" ".bash_profile"
 
+linkfolder "$DOTFILES_ROOT/bin" "$HOME/bin" "bin"
+
+linkfolder "$DOTFILES_ROOT/lib" "$HOME/lib" "lib"
+
 info "Creating typical dir structures."
 mkdir -p $HOME/src/projects
 mkdir -p $HOME/src/tools
