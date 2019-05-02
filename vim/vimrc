@@ -14,9 +14,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim/' }
-Plug 'elzr/vim-json',               { 'for': 'json' }
-Plug 'fatih/vim-go',                { 'for': 'go' }
-Plug 'honza/dockerfile.vim',        { 'for': 'dockerfile' }
 Plug 'jceb/vim-orgmode',            { 'for': 'org' }
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/goyo.vim'
@@ -24,24 +21,25 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align',     { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-journal',        { 'for': 'journal' }
 Plug 'junegunn/vim-peekaboo'
-Plug 'kchmck/vim-coffee-script',    { 'for': 'coffee' }
+Plug 'luochen1990/rainbow'
 "Plug 'ludovicchabant/vim-gutentags'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
-Plug 'mfukar/robotframework-vim',   { 'for': 'robot' }
-Plug 'mxw/vim-jsx',                 { 'for': 'jsx'}
 Plug 'myusuf3/numbers.vim'
-Plug 'pangloss/vim-javascript',     { 'for': 'javascript' }
 Plug 'rking/ag.vim'
-Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
+"Plug 'scrooloose/syntastic'
+Plug 'sheerun/vim-polyglot'
 Plug 'sjl/gundo.vim'
+Plug 'townk/vim-autoclose'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-liquid'
-Plug 'tpope/vim-markdown',          { 'for': 'markdown' }
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/utl.vim'
-Plug 'digitaltoad/vim-pug'
 
 " End setup of junegunn/vim-plug
 call plug#end()
@@ -59,8 +57,8 @@ set colorcolumn=81
 set textwidth=80
 set visualbell
 set list listchars=tab:▸\ ,trail:·,extends:»,precedes:«
-set columns=100                        " set width of floating window.
-set lines=67                           " set height of floating window.
+"set columns=100                        " set width of floating window.
+"set lines=67                           " set height of floating window.
 set cmdheight=1                        " set command window to hieght of 1.
 set scrolloff=5                        " set offset on zt
 
@@ -131,7 +129,10 @@ set rtp+=/home/drobati/.local/lib/python2.7/site-packages/powerline/bindings/vim
 set t_Co=256                           " XTerm 256 color support.
 if has('gui_running')
     set macligatures
-    set guifont=Fira\ Code:h12
+    set guifont=DankMono-Regular:h17
+    set transparency=15
+    set blurradius=10
+    "set guifont=Fira\ Code:h12
     "set guifont=DejaVu\ Sans\ Mono\ 10
 else
     set guifont=DejaVu\ Sans\ Mono\ 10
@@ -155,9 +156,25 @@ set tags=./tags;/
 " PLUGIN SPECIFIC OPTIONS
 " -----------------------
 
+" ale
+let g:ale_fixers = {
+\    '*': ['remove_trailing_lines', 'trim_whitespace'],
+\    'javascript': ['prettier'],
+\    'css': ['prettier'],
+\}
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_use_global = 1
+let g:ale_javascript_prettier_options = '--print-width 100 --tab-width 4 --single-quote --trailing-comma es5'
+
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '!'
+highlight ALEErrorSign ctermbg=NONE ctermfg=red guibg=NONE guifg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
+
 " Airline
 let g:airline_left_sep = ' '
 let g:airline_right_sep = ' '
+let g:airline#extensions#ale#enabled = 1
 
 " EasyAlign
 vmap <Enter> <Plug>(EasyAlign)
@@ -187,12 +204,20 @@ let g:gist_browser_command         = 'firefox %URL%'
 let g:gist_show_privates           = 1
 let g:gist_post_private            = 1
 
+" Git-Gutter
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '±'
+let g:gitgutter_sign_removed = '-'
+highlight GitGutterAdd    guifg=#009900 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+
 " Syntastic
-let g:syntastic_check_on_open   = 1
-let g:syntastic_error_symbol    = 'X'
-let g:syntastic_warning_symbol  = '!'
-let g:syntastic_auto_loc_list   = 2
-let g:syntastic_loc_list_height = 5
+"let g:syntastic_check_on_open   = 1
+"let g:syntastic_error_symbol    = 'X'
+"let g:syntastic_warning_symbol  = '!'
+"let g:syntastic_auto_loc_list   = 2
+"let g:syntastic_loc_list_height = 5
 
 " Fugitive
 nnoremap <leader>gs :Gstatus<cr>
@@ -203,15 +228,15 @@ nnoremap <F8> :TagbarToggle<CR>
 " Gundo
 nnoremap <F5> :GundoToggle<CR>
 
+" rainbow
+let g:rainbow_active = 1
+
 " Ultisnips
 let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit           = "vertical"
 let g:ultisnips_python_style       = "google"
-
-" jsx
-let g:jsx_ext_required = 0
 
 " Others
 function! s:goyo_enter()

@@ -1,52 +1,72 @@
 source $HOME/lib/secrets
+source $HOME/lib/functions/work.bash
+source $HOME/src/tools/mood/start.bash
 
 # bin
 export PATH=$HOME/bin:$PATH
-#export PATH=$HOME/.local/bin:$PATH
 
 # editor
 export EDITOR='vim'
 
-# exa
-alias ls='exa'
-alias ll='exa -l --git'
-alias lt='exa -lT -L 2'
-
-# helpful
-alias log='! git log --oneline | emojify | less'
-alias mvim='open -a MacVim'
-alias safari='open -a Safari'
-
-# shorthands
-alias dc='docker-compose'
-alias g='git'
-
-
-# for prompt later
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-title() {
-    printf "\\033]0;%s\\007" "$1"
-}
-
-# prompt
-PS1="\\[\\033[1;31m\\]\\W\\[\\033[1;33m\\]\$(parse_git_branch) \\[\\033[1;34m\\]λ\\[\\033[0m\\] "
-export PS1
+###############
+# COMPLETIONS #
+###############
 
 # bash completion
-export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+#export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+export BASH_COMPLETION_1_DIR="/usr/local/etc/bash_completion.d"
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+source $BASH_COMPLETION_1_DIR/git-completion.bash
+source $BASH_COMPLETION_1_DIR/git-flow-completion.bash
+source $BASH_COMPLETION_1_DIR/tmux
+
+# setup kubectl completion
+source <(kubectl completion bash)
+
+# setup tenant-cli completion
+_yargs_completions()
+{
+    local cur_word args type_list
+
+    cur_word="${COMP_WORDS[COMP_CWORD]}"
+    args=("${COMP_WORDS[@]}")
+
+    # ask yargs to generate completions.
+    type_list=$(tenant-cli --get-yargs-completions "${args[@]}")
+
+    COMPREPLY=( $(compgen -W "${type_list}" -- ${cur_word}) )
+
+    # if no match was found, fall back to filename completion
+    if [ ${#COMPREPLY[@]} -eq 0 ]; then
+      COMPREPLY=( $(compgen -f -- "${cur_word}" ) )
+    fi
+
+    return 0
+}
+complete -F _yargs_completions tenant-cli
+
+#########
+# TOOLS #
+#########
 
 # setup thefuck
 eval "$(thefuck --alias)"
 
 # setup fasd
 eval "$(fasd --init auto)"
+
+# setup fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 alias v='f -e mvim' # quick opening files with vim
 
-function fasd_aliases() {
+unalias z
+function z() {
+  local dir
+  dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+}
+
+function list-fasd-aliases() {
     echo -e "a\\tfasd -a \\tany"
     echo -e "s\\tfasd -si\\tshow / search / select"
     echo -e "d\\tfasd -d \\tdirectory"
@@ -58,64 +78,68 @@ function fasd_aliases() {
     echo -e "v\\tf -e mvim\\tquick opening files with macvim"
 }
 
-# setup fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# Language setups
+############
+# LANGUAGE #
+############
 
 # setup nvm
 #export NVM_DIR=~/.nvm
 # shellcheck source=/dev/null
-#source $(brew --prefix nvm)/nvm.sh
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
 
-# setup venvw
-#export WORKON_HOME=~/.venv
-#export VIRTUALENVWRAPPER_PYTHON=/usr/local/opt/python/libexec/bin/python
-# shellcheck source=/dev/null
-#source /usr/local/bin/virtualenvwrapper.sh
+#############
+# FUNCTIONS #
+#############
 
-# golang vars
-#export GOPATH=$HOME/go
-#export GOROOT=/usr/local/opt/go/libexec
-#export PATH=$PATH:$GOPATH/bin
-#export PATH=$PATH:$GOROOT/bin
-
-# be unique
-#random-fortune
-echo " "
-
-BLACK='\033[0;30m'
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
-CYAN='\033[0;36m'
-LT_GRAY='\033[0;37m'
-DK_GRAY='\033[1;30m'
-LT_RED='\033[1;31m'
-LT_GREEN='\033[1;32m'
-LT_YELLOW='\033[1;33m'
-LT_BLUE='\033[1;34m'
-LT_PURPLE='\033[1;35m'
-LT_CYAN='\033[1;36m'
-WHITE='\033[1;37m'
-NC='\033[0m'
-
-function listcolors() {
-    echo -e "${BLACK}Black:\\t\\t(0;30);    ${DK_GRAY}Dark Gray:\\t\\t(1;30)${NC}"
-    echo -e "${RED}Red:\\t\\t(0;31);    ${LT_RED}Light Red:\\t\\t(1;31)${NC}"
-    echo -e "${GREEN}Green:\\t\\t(0;32);    ${LT_GREEN}Light Green:\\t\\t(1;32)${NC}"
-    echo -e "${YELLOW}Yellow:\\t\\t(0;33);    ${LT_YELLOW}Light Yellow:\\t\\t(1;33)${NC}"
-    echo -e "${BLUE}Blue:\\t\\t(0;34);    ${LT_BLUE}Light Blue:\\t\\t(1;34)${NC}"
-    echo -e "${PURPLE}Purple:\\t\\t(0;35);    ${LT_PURPLE}Light Purple:\\t(1;35)${NC}"
-    echo -e "${CYAN}Cyan:\\t\\t(0;36);    ${LT_CYAN}Light Cyan:\\t\\t(1;36)${NC}"
-    echo -e "${LT_GRAY}Light Gray:\\t(0;37);    ${WHITE}White:\\t\\t(1;37)${NC}"
+title() {
+    printf "\\033]0;%s\\007" "$1"
 }
 
-echo -e "${LT_YELLOW}    Get Shit Done.${NC}"
-echo
+# Install (one or multiple) selected application(s)
+# using "brew search" as source input
+# mnemonic [B]rew [I]nstall [P]lugin
+function bip() {
+  local inst=$(brew search | fzf -m)
 
-source $HOME/lib/functions/work.sh
+  if [[ $inst ]]; then
+    for prog in $(echo $inst);
+    do brew install $prog; done;
+  fi
+}
 
+# Update (one or multiple) selected application(s)
+# mnemonic [B]rew [U]pdate [P]lugin
+function bup() {
+  local upd=$(brew leaves | fzf -m)
 
+  if [[ $upd ]]; then
+    for prog in $(echo $upd);
+    do brew upgrade $prog; done;
+  fi
+}
+
+# Delete (one or multiple) selected application(s)
+# mnemonic [B]rew [C]lean [P]lugin (e.g. uninstall)
+function bcp() {
+  local uninst=$(brew leaves | fzf -m)
+
+  if [[ $uninst ]]; then
+    for prog in $(echo $uninst);
+    do brew uninstall $prog; done;
+  fi
+}
+
+# aliases
+alias ls='exa'
+alias ll='exa -l --git'
+alias lt='exa -lT -L 2'
+alias log='! git log --oneline | emojify | less'
+alias mvim='open -a MacVim'
+alias ag='ag --color-match '\''1;31'\'''
+
+# prompt
+git-branch-prompt() {
+    parse-git-branch 2> /dev/null | sed -e 's/\(.*\)/ (\1)/'
+}
+PS1="${LT_RED}\\W${LT_YELLOW}\$(git-branch-prompt) ${LT_BLUE}λ${NC} "
+export PS1
