@@ -27,12 +27,6 @@ function z() {
 }
 
 
-unalias z
-function z() {
-  local dir
-  dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
-}
-
 # setup node
 export NVM_DIR=~/.nvm
 # shellcheck source=/dev/null
