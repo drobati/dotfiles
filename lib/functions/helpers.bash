@@ -46,6 +46,10 @@ function colorize() {
     echo "\\[\033[38;5;$1m\\]"
 }
 
+function parse-git-branch() {
+  git branch | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
 function git-branch-prompt() {
     parse-git-branch 2> /dev/null | sed -e 's/\(.*\)/ (\1)    /'
 }
