@@ -77,6 +77,8 @@ chsh -s /usr/local/bin/bash
 - sqlite
 - redis
 
+Might want to turn on respective brew services.
+
 ## Security
 
 ```
@@ -108,8 +110,15 @@ https://github.com/JohnCoates/Aerial
 ```
 brew cask install aerial
 ```
+# Configure git
 
-# Generate SSH and GPG keys
+```
+git config --global user.name "Derek Robati"
+git config --global user.email derek.robati@gmail.com
+git config --global user.signingkey derek.robati@gmail.com
+```
+
+# Configure SSH 
 
 Generate SSH key
 
@@ -123,8 +132,9 @@ Copy SSH Key
 cat ~/.ssh/id_rsa.pub | pbcopy
 ```
 
-Generate GPG key, which of course requires `gnupg` package.
+# Configure GPG
 
+Generate GPG key, which of course requires `gnupg` package.
 ```
 gpg --full-generate-key
 ```
@@ -134,13 +144,21 @@ Copy GPG Key
 gpg --list-secret-keys --keyid-format LONG
 gpg --armor --export derek.robati@gmail.com
 ```
+Configure GitHub at https://github.com/settings/keys
 
-# Configure git
-
+Configure git config
 ```
-git config --global user.name "Derek Robati"
-git config --global user.email derek.robati@gmail.com
 git config --global user.signingkey derek.robati@gmail.com
+git config --global commit.gpgsign true
+```
+
+Configure TTY to show agent
+```
+vim ~/.gnupg/gpg.conf
+# Put these in file
+# no-tty
+# use-agent
+#echo "export GPG_TTY=$(tty)" >> ~/.bashrc
 ```
 
 # Install Favorite Software
