@@ -161,6 +161,14 @@ vim ~/.gnupg/gpg.conf
 #echo "export GPG_TTY=$(tty)" >> ~/.bashrc
 ```
 
+When the GPG key expires
+```
+gpg --list-secret-keys --keyid-format LONG
+gpg --delete-secret-keys <key>
+```
+
+If GPG complains about tty comment non-tty in ~/.gnupg/gpg.conf, then renable it.
+
 # Install Favorite Software
 
 ## Install Fonts
