@@ -2,10 +2,6 @@
 
 This is my macOS setup guide. Since I'm doing it with a fresh mac, I'm noting everything for future macs.
 
-# Install GitHub CLI
-
-https://github.com/cli/cli#installation
-
 # Install Dotfiles
 
 ```
@@ -23,7 +19,7 @@ https://brew.sh
 ```
 brew install ag bash-completion colordiff cscope curl exa fasd fzf git-lfs \
     gnupg grc hr htop jq ssh-copy-id termtosvg thefuck tig tldr tmux tree \
-    macvim neofetch ranger rename wget
+    macvim neofetch ranger rename wget gh git
 ```
 
 ## MacVim
