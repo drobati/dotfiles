@@ -21,8 +21,8 @@ brew install ag bash-completion colordiff cscope curl exa fasd fzf git-lfs \
 # Install Dotfiles
 
 ```
-gh repo clone drobati/dotfiles
-cd dotfiles
+gh repo clone drobati/dotfiles .dotfiles
+cd .dotfiles
 ./install.sh
 ```
 
