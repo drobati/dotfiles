@@ -12,8 +12,7 @@ https://brew.sh
 
 ```
 brew install ag bash-completion colordiff cscope curl exa fasd fzf git-lfs \
-    gnupg grc hr htop jq ssh-copy-id termtosvg thefuck tig tldr tmux tree \
-    macvim neofetch ranger rename wget gh git
+    gnupg hr jq ssh-copy-id termtosvg thefuck tig tldr wget gh git kubectl
 ```
 
 # Install Dotfiles
@@ -61,9 +60,20 @@ chsh -s /usr/local/bin/bash
 - bash-completion@2
 - shellcheck
 
-## Javascript
+## Node
 
-- nvm
+```
+brew install nvm
+nvm install 14
+```
+
+# 30s
+A cli tool for printing snippets of code. I use this to print out short snippets of code to read on a new terminal.
+https://www.npmjs.com/package/30s
+
+```
+npm i 30s -g
+```
 
 ## Arial screensaver
 
@@ -175,6 +185,12 @@ Open Terminal config, set New window with profile to Tomorrow Night Eighties.
 Also open Profiles and set default to Tomorrow Night Eighties.
 Also change font on profiles to Source Code Pro Regular 12.
 Also double check bold fonts is turned on.
+
+## Shut up Terminal last login
+
+```
+touch ~/.hushlogin
+```
 
 ## Install KeepingYouAwake
 
