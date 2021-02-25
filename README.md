@@ -2,14 +2,15 @@
 
 This is my macOS setup guide. Since I'm doing it with a fresh mac, I'm noting everything for future macs.
 
-# Overview
+# Install GitHub CLI
 
-- [ ] Install Homebrew
-- [ ] Install Packages
-- [ ] Generate SSH and GPG keys
-- [ ] Configure Git
-- [ ] Install Favorite Software
-- [ ] Clone and Install Dotfiles
+https://github.com/cli/cli#installation
+
+# Install Dotfiles
+
+```
+git clone
+```
 
 # Install Brew
 
@@ -41,7 +42,7 @@ mv /usr/local/Cellar/macvim/7.3-65/MacVim.app /Applications/
 ln -s /Applications/MacVim.app /usr/local/Cellar/macvim/7.3-65/
 ```
 
-Install the plugins.
+Install the plugins, but only after .bashrc is fixed.
 
 ```
 :PlugInstall
@@ -63,53 +64,14 @@ chsh -s /usr/local/bin/bash
 ## Javascript
 
 - nvm
-- yarn
-
-## Go
-
-- delve
-
-## Database
-
-- mycli
-- innotop
-- pgcli
-- sqlite
-- redis
-
-Might want to turn on respective brew services.
-
-## Security
-
-```
-pip3 install stronghold
-```
-
-## Infrastructure
-
-```
-brew tap heroku/brew && brew install heroku
-```
-
-## Foolery
-
-- emojify
-- fortune
-- nethack
-- spark
-- lolcat
-- rtv
-
-```
-yarn global add splash-cli
-```
 
 ## Arial screensaver
 
 https://github.com/JohnCoates/Aerial
 ```
-brew cask install aerial
+brew install aerial
 ```
+
 # Configure git
 
 ```
@@ -141,12 +103,13 @@ gpg --full-generate-key
 
 Copy GPG Key
 ```
-gpg --list-secret-keys --keyid-format LONG
-gpg --armor --export derek.robati@gmail.com
+gpg --armor --export derek.robati@gmail.com | pbcopy
 ```
+
 Configure GitHub at https://github.com/settings/keys
 
 Configure git config
+
 ```
 git config --global user.signingkey derek.robati@gmail.com
 git config --global commit.gpgsign true
@@ -179,23 +142,17 @@ brew cask install font-fira-code
 brew cask install font-source-code-pro
 ```
 
+## Install Alfred
+https://www.alfredapp.com/
+
+### Install Alfred Bluetooth Workflow
+https://github.com/tilmanginzel/alfred-bluetooth-workflow
+
+## Install WebStorm
+https://www.jetbrains.com/webstorm/
+
 ## Install VSCode
-
 https://code.visualstudio.com
-
-### Setup Packages
-
-TODO
-
-## Configure Safari
-
-### Install ublock origin
-
-https://github.com/el1t/uBlock-Safari#installation
-
-### Install svim
-
-https://github.com/flipxfx/sVim
 
 ## Install Spectacle
 
@@ -204,10 +161,6 @@ https://www.spectacleapp.com
 ## Install Bartender
 
 https://www.macbartender.com
-
-## Install Golang
-
-https://golang.org/dl/
 
 ## Install tomorrow-night themes
 
