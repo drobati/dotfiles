@@ -1,12 +1,8 @@
-# dotfiles
+# Dotfiles
 
 This is my macOS setup guide. Since I'm doing it with a fresh mac, I'm noting everything for future macs.
 
-# Install Dotfiles
-
-```
-git clone
-```
+> Hack the Planet
 
 # Install Brew
 
@@ -20,6 +16,14 @@ https://brew.sh
 brew install ag bash-completion colordiff cscope curl exa fasd fzf git-lfs \
     gnupg grc hr htop jq ssh-copy-id termtosvg thefuck tig tldr tmux tree \
     macvim neofetch ranger rename wget gh git
+```
+
+# Install Dotfiles
+
+```
+gh repo clone drobati/dotfiles
+cd dotfiles
+./install.sh
 ```
 
 ## MacVim
@@ -199,13 +203,3 @@ https://github.com/keycastr/keycastr
 ## iStatMenus
 
 https://bjango.com/mac/istatmenus/
-
-# Clone and Install Dotfiles
-
-```
-git clone git@github.com:drobati/dotfiles.git .dotfiles
-cd .dotfiles
-./install.sh
-```
-
-Hack the planet.
