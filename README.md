@@ -10,8 +10,6 @@ https://brew.sh
 
 # Install Brew Packages
 
-## Quality of Life
-
 ```
 brew install ag bash-completion colordiff cscope curl exa fasd fzf git-lfs \
     gnupg grc hr htop jq ssh-copy-id termtosvg thefuck tig tldr tmux tree \
@@ -25,6 +23,8 @@ gh repo clone drobati/dotfiles .dotfiles
 cd .dotfiles
 ./install.sh
 ```
+
+# Install Additional Packages
 
 ## MacVim
 
