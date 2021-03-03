@@ -164,9 +164,9 @@ https://www.jetbrains.com/webstorm/
 ## Install VSCode
 https://code.visualstudio.com
 
-## Install Spectacle
+## Install Rectangle (window management)
 
-https://www.spectacleapp.com
+https://rectangleapp.com/
 
 ## Install Bartender
 
