@@ -111,9 +111,11 @@ Generate GPG key, which of course requires `gnupg` package.
 gpg --full-generate-key
 ```
 
-Copy GPG Key
+Copy GPG Key To GitHub
 ```
-gpg --armor --export derek.robati@gmail.com | pbcopy
+gpg --output public.pgp --armor --export derek@robati.com
+gh gpg-key add public.pgp
+rm public.pgp
 ```
 
 Configure GitHub at https://github.com/settings/keys
@@ -121,7 +123,7 @@ Configure GitHub at https://github.com/settings/keys
 Configure git config
 
 ```
-git config --global user.signingkey derek.robati@gmail.com
+git config --global user.signingkey derek@robati.com
 git config --global commit.gpgsign true
 ```
 
