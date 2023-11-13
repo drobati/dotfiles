@@ -10,13 +10,14 @@ https://brew.sh
 
 # Install Brew Packages
 
+A refined list of my must haves
 ```
-brew install ag bash-completion colordiff cscope curl exa fasd fzf git-lfs \
-    gnupg hr jq ssh-copy-id termtosvg thefuck tig tldr wget gh git kubectl
+brew install ag exa fasd fzf gnupg jq gh git
 ```
 
 # Install Dotfiles
 
+- TODO: Revisit install.sh
 ```
 gh repo clone drobati/dotfiles .dotfiles
 cd .dotfiles
