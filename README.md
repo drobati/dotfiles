@@ -1,8 +1,17 @@
 # Dotfiles
 
+> Hack the Planet
+
 This is my macOS setup guide. Since I'm doing it with a fresh mac, I'm noting everything for future macs.
 
-> Hack the Planet
+
+# New mac? Do this first
+
+## Fix natural scrolling
+System Preferences > Trackpad > Scroll & Zoom > Uncheck Scroll direction: natural
+
+## Replace capslock with esc (because im a vim users)
+System Preferences > Keyboard > Modifier Keys > Caps Lock Key: Escape
 
 # Install Brew
 
@@ -10,9 +19,9 @@ https://brew.sh
 
 # Install Brew Packages
 
-A refined list of my must haves
+A refined list of my must-haves
 ```
-brew install ag exa fasd fzf gnupg jq gh git
+brew install ag exa fasd fzf gnupg jq gh git starship
 ```
 
 # Install Dotfiles
@@ -24,7 +33,162 @@ cd .dotfiles
 ./install.sh
 ```
 
-# Install Additional Packages
+# Basics
+
+## Zsh
+
+Upgrade to latest zsh
+
+```
+brew install zsh
+sudo bash -c 'echo /usr/local/bin/zsh >> /etc/shells' 
+chsh -s /usr/local/bin/zsh
+```
+
+## Node
+
+Install nvm
+```
+brew install nvm
+```
+
+Add this to .zshrc (though it's probably there if you use my dotfile)
+```
+echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc
+echo '[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"' >> ~/.zshrc
+echo '[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"' >> ~/.zshrc
+```
+
+Install latest node
+```
+nvm install 20
+nvm alias default 20
+```
+
+Update npm
+```
+npm i -g npm
+```
+
+## Python
+```
+brew install pyenv
+```
+
+Add this to .zshrc
+```
+echo 'eval "$(pyenv init --path)"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+```
+
+Install both pythons
+```
+pyenv install 3
+pyenv install 2
+pyenv global 3
+```
+
+Double-check the versions
+```
+python --version
+python3 --version
+python2 --version
+```
+
+# git
+
+Git should already be upgraded from brew earlier
+```
+git config --global user.name "Derek Robati"
+git config --global user.email derek@robati.com
+```
+
+# gh (github cli)
+
+```
+gh auth login
+```
+
+# ssh
+
+Generate SSH key
+```
+ssh-keygen -t rsa
+```
+
+Add SSH key to github
+```
+cat ~/.ssh/id_rsa.pub | gh ssh-key add -t "Your Key Title"
+```
+
+# gpg
+
+### setup
+First, setup TTY to show agent, or if you want TTY you can install `pinentry`
+```
+vim ~/.gnupg/gpg.conf
+```
+
+Put these in `~/.gnupg/gpg.conf`
+```
+no-tty
+use-agent
+```
+_If GPG complains about tty comment non-tty in ~/.gnupg/gpg.conf, then renable it._
+
+Write TTY to .bashrc (can't remember if this is necessary)
+```
+echo "export GPG_TTY=$(tty)" >> ~/.bashrc
+```
+
+### yearly renewal
+Generate GPG key
+```
+gpg --full-generate-key
+```
+
+Configure git config for GPG
+```
+git config --global user.signingkey derek@robati.com
+git config --global commit.gpgsign true
+```
+
+Upload the key to github
+```
+gpg --list-secret-keys --keyid-format LONG
+gpg --armor --export <key> | gh gpg-key add -
+```
+
+Delete the expired key
+```
+gpg --list-secret-keys --keyid-format LONG
+gpg --delete-secret-keys <key>
+gh gpg-key delete <key>
+```
+
+# Applications
+
+## Warp
+Best terminal out rn
+```zsh
+brew install --cask warp
+```
+
+## JetBrains Toolkit
+https://www.jetbrains.com/toolbox-app/
+This lets me install webstorm and datagrip.
+
+## Raycast
+Excellent spotlight replacement
+https://www.raycast.com/
+
+## Install Rectangle
+Must have window management
+https://rectangleapp.com/
+
+## Install Bartender
+Menubar management
+https://www.macbartender.com
 
 ## MacVim
 
@@ -48,109 +212,37 @@ Install the plugins, but only after .bashrc is fixed.
 :PlugInstall
 ```
 
-## Zsh
+# Extras
 
-Upgrade to latest zsh
-
+## Shut up Terminal last login
 ```
-brew install zsh
-sudo bash -c 'echo /usr/local/bin/zsh >> /etc/shells' 
-chsh -s /usr/local/bin/zsh
-```
-
-## Node
-
-```
-brew install nvm
-nvm install 20
+touch ~/.hushlogin
 ```
 
 # 30s
 A cli tool for printing snippets of code. I use this to print out short snippets of code to read on a new terminal.
 https://www.npmjs.com/package/30s
-
 ```
 npm i 30s -g
 ```
 
 ## Arial screensaver
-
+Really nice screensavers based on Apple TV.
 https://github.com/JohnCoates/Aerial
 ```
 brew install aerial
 ```
 
-# Configure git
+## iStatMenus
+I like to monitor my CPU and memory usage.
+https://bjango.com/mac/istatmenus/
 
+## Install KeepingYouAwake
+Prevents mac from sleeping
+https://github.com/newmarcel/KeepingYouAwake
 ```
-git config --global user.name "Derek Robati"
-git config --global user.email derek.robati@gmail.com
-git config --global user.signingkey derek.robati@gmail.com
+brew cask install keepingyouawake
 ```
-
-# Configure gh (github cli)
-
-```
-gh auth login
-```
-
-# Configure SSH 
-
-Generate SSH key
-
-```
-ssh-keygen -t rsa
-```
-
-Add SSH key to github
-```
-cat ~/.ssh/id_rsa.pub | gh ssh-key add -t "Your Key Title"
-```
-
-# Configure GPG
-
-First, setup TTY to show agent, or if you want TTY you can install `pinentry`
-```
-vim ~/.gnupg/gpg.conf
-```
-
-Put these in `~/.gnupg/gpg.conf`
-```
-no-tty
-use-agent
-```
-_If GPG complains about tty comment non-tty in ~/.gnupg/gpg.conf, then renable it._
-
-Write TTY to .bashrc (can't remember if this is necessary)
-```
-echo "export GPG_TTY=$(tty)" >> ~/.bashrc
-```
-
-Generate GPG key
-```
-gpg --full-generate-key
-```
-
-Configure git config for GPG
-```
-git config --global user.signingkey derek@robati.com
-git config --global commit.gpgsign true
-```
-
-Upload the key to github
-```
-gpg --list-secret-keys --keyid-format LONG
-gpg --armor --export <key> | gh gpg-key add -
-```
-
-When the GPG key expires, delete it
-```
-gpg --list-secret-keys --keyid-format LONG
-gpg --delete-secret-keys <key>
-gh gpg-key delete <key>
-```
-
-# Install Favorite Software
 
 ## Install Fonts
 
@@ -160,27 +252,11 @@ brew cask install font-fira-code
 brew cask install font-source-code-pro
 ```
 
-## Install Alfred
-https://www.alfredapp.com/
-
-### Install Alfred Bluetooth Workflow
-https://github.com/tilmanginzel/alfred-bluetooth-workflow
-
-## Install WebStorm
-https://www.jetbrains.com/webstorm/
-
-## Install VSCode
-https://code.visualstudio.com
-
-## Install Rectangle (window management)
-
-https://rectangleapp.com/
-
-## Install Bartender
-
-https://www.macbartender.com
+# Old stuff
 
 ## Install tomorrow-night themes
+I don't really bother with these anymore, but I'll leave it here for now.
+It was really useful for theming the terminal.app, but now I use warp.
 
 ```
 cd src/tools
@@ -194,36 +270,3 @@ Also open Profiles and set default to Tomorrow Night Eighties.
 Also change font on profiles to Source Code Pro Regular 12.
 Also double check bold fonts is turned on.
 
-## Shut up Terminal last login
-
-```
-touch ~/.hushlogin
-```
-
-## Install KeepingYouAwake
-
-https://github.com/newmarcel/KeepingYouAwake
-
-```
-brew cask install keepingyouawake
-```
-
-## Install bearded-spice
-
-https://github.com/beardedspice/beardedspice
-
-## Shifty
-
-https://shifty.natethompson.io/en/
-
-## Night Owl
-
-https://nightowl.kramser.xyz
-
-## KeyCaster
-
-https://github.com/keycastr/keycastr
-
-## iStatMenus
-
-https://bjango.com/mac/istatmenus/
