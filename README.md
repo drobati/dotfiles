@@ -47,24 +47,21 @@ Install the plugins, but only after .bashrc is fixed.
 :PlugInstall
 ```
 
-## Bash
+## Zsh
 
-Upgrade to latest bash
+Upgrade to latest zsh
 
 ```
-brew install bash
-sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells' 
-chsh -s /usr/local/bin/bash
+brew install zsh
+sudo bash -c 'echo /usr/local/bin/zsh >> /etc/shells' 
+chsh -s /usr/local/bin/zsh
 ```
-
-- bash-completion@2
-- shellcheck
 
 ## Node
 
 ```
 brew install nvm
-nvm install 14
+nvm install 20
 ```
 
 # 30s
@@ -90,6 +87,12 @@ git config --global user.email derek.robati@gmail.com
 git config --global user.signingkey derek.robati@gmail.com
 ```
 
+# Configure gh (github cli)
+
+```
+gh auth login
+```
+
 # Configure SSH 
 
 Generate SSH key
@@ -98,51 +101,53 @@ Generate SSH key
 ssh-keygen -t rsa
 ```
 
-Copy SSH Key
-
+Add SSH key to github
 ```
-cat ~/.ssh/id_rsa.pub | pbcopy
+cat ~/.ssh/id_rsa.pub | gh ssh-key add -t "Your Key Title"
 ```
 
 # Configure GPG
 
-Generate GPG key, which of course requires `gnupg` package.
+First, setup TTY to show agent, or if you want TTY you can install `pinentry`
+```
+vim ~/.gnupg/gpg.conf
+```
+
+Put these in `~/.gnupg/gpg.conf`
+```
+no-tty
+use-agent
+```
+_If GPG complains about tty comment non-tty in ~/.gnupg/gpg.conf, then renable it._
+
+Write TTY to .bashrc (can't remember if this is necessary)
+```
+echo "export GPG_TTY=$(tty)" >> ~/.bashrc
+```
+
+Generate GPG key
 ```
 gpg --full-generate-key
 ```
 
-Copy GPG Key To GitHub
-```
-gpg --output public.pgp --armor --export derek@robati.com
-gh gpg-key add public.pgp
-rm public.pgp
-```
-
-Configure GitHub at https://github.com/settings/keys
-
-Configure git config
-
+Configure git config for GPG
 ```
 git config --global user.signingkey derek@robati.com
 git config --global commit.gpgsign true
 ```
 
-Configure TTY to show agent
+Upload the key to github
 ```
-vim ~/.gnupg/gpg.conf
-# Put these in file
-# no-tty
-# use-agent
-#echo "export GPG_TTY=$(tty)" >> ~/.bashrc
+gpg --list-secret-keys --keyid-format LONG
+gpg --armor --export <key> | gh gpg-key add -
 ```
 
-When the GPG key expires
+When the GPG key expires, delete it
 ```
 gpg --list-secret-keys --keyid-format LONG
 gpg --delete-secret-keys <key>
+gh gpg-key delete <key>
 ```
-
-If GPG complains about tty comment non-tty in ~/.gnupg/gpg.conf, then renable it.
 
 # Install Favorite Software
 
