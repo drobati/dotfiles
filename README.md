@@ -252,6 +252,15 @@ brew cask install font-fira-code
 brew cask install font-source-code-pro
 ```
 
+## Set `sudo` to use Touch ID
+
+```
+sudo cp /etc/pam.d/sudo_local.template /etc/pam.d/sudo_local
+sudo vim /etc/pam.d/sudo_local
+```
+
+Remove the `#` on the commented line.
+
 # Old stuff
 
 ## Install tomorrow-night themes
