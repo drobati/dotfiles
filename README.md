@@ -32,12 +32,6 @@ git config --global user.name "Derek Robati"
 git config --global user.email derek@robati.com
 ```
 
-# gh (github cli)
-
-```
-gh auth login
-```
-
 # ssh
 
 Generate SSH key
@@ -45,16 +39,20 @@ Generate SSH key
 ssh-keygen -t rsa
 ```
 
-Add SSH key to github
+# gh (github cli)
+
+Auth `gh`, during this we will use id_rsa.pub as our key.
 ```
-cat ~/.ssh/id_rsa.pub | gh ssh-key add -t "Your Key Title"
+gh auth login
+gh auth refresh -s admin:gpg_key # to add and delete
 ```
 
 # gpg
 
 ### setup
-First, setup TTY to show agent, or if you want TTY you can install `pinentry`
+First, setup no-tty to show agent, or if you want TTY you can install `pinentry`
 ```
+gpg --full-generate-key
 vim ~/.gnupg/gpg.conf
 ```
 
@@ -65,21 +63,16 @@ use-agent
 ```
 _If GPG complains about tty comment non-tty in ~/.gnupg/gpg.conf, then renable it._
 
-Write TTY to .bashrc (can't remember if this is necessary)
+Configure git config for GPG
 ```
-echo "export GPG_TTY=$(tty)" >> ~/.bashrc
+git config --global user.signingkey derek@robati.com
+git config --global commit.gpgsign true
 ```
 
 ### yearly renewal
 Generate GPG key
 ```
 gpg --full-generate-key
-```
-
-Configure git config for GPG
-```
-git config --global user.signingkey derek@robati.com
-git config --global commit.gpgsign true
 ```
 
 Upload the key to github
