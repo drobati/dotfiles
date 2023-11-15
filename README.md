@@ -24,77 +24,6 @@ A refined list of my must-haves
 brew install ag exa fasd fzf gnupg jq gh git starship
 ```
 
-# Install Dotfiles
-
-- TODO: Revisit install.sh
-```
-gh repo clone drobati/dotfiles .dotfiles
-cd .dotfiles
-./install.sh
-```
-
-# Basics
-
-## Zsh
-
-Upgrade to latest zsh
-
-```
-brew install zsh
-sudo bash -c 'echo /usr/local/bin/zsh >> /etc/shells' 
-chsh -s /usr/local/bin/zsh
-```
-
-## Node
-
-Install nvm
-```
-brew install nvm
-```
-
-Add this to .zshrc (though it's probably there if you use my dotfile)
-```
-echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc
-echo '[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"' >> ~/.zshrc
-echo '[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"' >> ~/.zshrc
-```
-
-Install latest node
-```
-nvm install 20
-nvm alias default 20
-```
-
-Update npm
-```
-npm i -g npm
-```
-
-## Python
-```
-brew install pyenv
-```
-
-Add this to .zshrc
-```
-echo 'eval "$(pyenv init --path)"' >> ~/.zshrc
-echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-```
-
-Install both pythons
-```
-pyenv install 3
-pyenv install 2
-pyenv global 3
-```
-
-Double-check the versions
-```
-python --version
-python3 --version
-python2 --version
-```
-
 # git
 
 Git should already be upgraded from brew earlier
@@ -164,6 +93,67 @@ Delete the expired key
 gpg --list-secret-keys --keyid-format LONG
 gpg --delete-secret-keys <key>
 gh gpg-key delete <key>
+```
+
+# Install Dotfiles
+
+- TODO: Revisit install.sh
+```
+gh repo clone drobati/dotfiles .dotfiles
+cd .dotfiles
+./install.sh
+```
+
+# Basics
+
+## Node
+
+Install nvm
+```
+brew install nvm
+```
+
+Add this to .zshrc (though it's probably there if you use my dotfile)
+```
+echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc
+echo '[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"' >> ~/.zshrc
+echo '[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"' >> ~/.zshrc
+```
+
+Install latest node
+```
+nvm install 20
+nvm alias default 20
+```
+
+Update npm
+```
+npm i -g npm
+```
+
+## Python
+```
+brew install pyenv
+```
+
+Add this to .zshrc
+```
+echo 'eval "$(pyenv init --path)"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+```
+
+Install both pythons
+```
+pyenv install 3
+pyenv install 2
+pyenv global 3
+```
+
+Double-check the versions
+```
+python --version
+python3 --version
+python2 --version
 ```
 
 # Applications
