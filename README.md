@@ -139,7 +139,7 @@ Install both pythons
 ```
 pyenv install 3
 pyenv install 2
-pyenv global 3
+pyenv global 3 2
 ```
 
 Double-check the versions
