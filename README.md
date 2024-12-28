@@ -185,9 +185,10 @@ This is to remind me of why to install MacVim with brew.
 
 Add it to your applications folder so spotlight can find it.
 ```
-mv /usr/local/Cellar/macvim/7.3-65/MacVim.app /Applications/  
-ln -s /Applications/MacVim.app /usr/local/Cellar/macvim/7.3-65/
+mv /opt/homebrew/Cellar/macvim/{latest_version}/MacVim.app /Applications/  
+ln -s /Applications/MacVim.app /opt/homebrew/Cellar/macvim/{latest_version}/
 ```
+> To update remove the old one and repeat.
 
 Install the plugins, but only after .bashrc is fixed.
 
