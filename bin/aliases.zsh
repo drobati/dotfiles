@@ -1,8 +1,33 @@
 #!/usr/bin/env zsh
-# * membeeeeeeer
-# *
+# Aliases and functions for zshrc customization
+#
+# Available Commands:
+# - remember   : Display a portion of aliases.zsh (lines 2-3)
+# - edit       : Open aliases.zsh in MacVim
+# - reload     : Reload aliases.zsh and confirm reload
+# - cat        : Use bat for syntax-highlighted cat
+# - ag         : Customize ag (silver searcher) color
+# - git aliases:
+#   - g        : Shortcut for git
+#   - s        : Show short git status
+#   - log      : One-line git log with emoji support
+# - exa aliases:
+#   - ls       : Enhanced listing with eza
+#   - ll       : Tree listing with eza
+# - c          : Open GitKraken in current git directory
+# - ws         : Open directory in WebStorm via fasd and fzf
+# - vs         : Open directory in VS Code via fasd and fzf
+# - o          : Open directory via fasd and fzf
+# - m          : Open file in MacVim via fasd and fzf
+# - v          : Open file in Vim via fasd and fzf
+# - cd alias:
+#   - cd       : Uses z (autojump) with enhanced ls output
+# - gho        : Open GitHub repo in browser
+# - b          : Format clipboard JSON with bunyan
+# - kill-port  : Select and kill process listening on a port
+# - get_all_paths: Extract JSON paths from clipboard JSON
 
-alias remember='cat -r 2:3 ~/bin/aliases.zsh'
+alias remember='cat -r 4:28 ~/bin/aliases.zsh'
 alias edit='mvim ~/bin/aliases.zsh'
 alias reload='source ~/bin/aliases.zsh && echo "Aliases reloaded from ~/bin/aliases.zsh"'
 
