@@ -3,50 +3,61 @@
 " -----
 scriptencoding utf-8
 
-" Setup junegunn/vim-plug
+" --- Plugins (vim-plug) ---
+
 call plug#begin('~/.vim/plugged')
 
-" Manage Plugins
+" Editor enhancements
 Plug 'Lokaltog/vim-easymotion'
+Plug 'townk/vim-autoclose'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-speeddating'
+Plug 'junegunn/vim-easy-align',     { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+Plug 'junegunn/vim-peekaboo'
+Plug 'markonm/traces.vim'
+Plug 'sjl/gundo.vim'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'justinj/vim-react-snippets'
-Plug 'airblade/vim-gitgutter'
+
+" UI
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim/' }
-Plug 'jceb/vim-orgmode',            { 'for': 'org' }
+Plug 'itchyny/vim-cursorword'
+Plug 'myusuf3/numbers.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'luochen1990/rainbow'
+
+" Git
+Plug 'airblade/vim-gitgutter',      { 'branch': 'main' }
+Plug 'tpope/vim-fugitive'
+Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
+
+" Linting
+Plug 'w0rp/ale'
+
+" Language & filetype
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-liquid'
+Plug 'tpope/vim-jdaddy'
 Plug 'jmcantrell/vim-virtualenv'
+Plug 'rking/ag.vim'
+Plug 'majutsushi/tagbar'
+
+" Writing
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'junegunn/vim-easy-align',     { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-journal',        { 'for': 'journal' }
-Plug 'junegunn/vim-peekaboo'
-Plug 'luochen1990/rainbow'
-"Plug 'ludovicchabant/vim-gutentags'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'majutsushi/tagbar'
-Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
-Plug 'myusuf3/numbers.vim'
-Plug 'rking/ag.vim'
-Plug 'w0rp/ale'
-"Plug 'scrooloose/syntastic'
-Plug 'sheerun/vim-polyglot'
-Plug 'sjl/gundo.vim'
-Plug 'townk/vim-autoclose'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-jdaddy'
-Plug 'tpope/vim-liquid'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-surround'
+Plug 'jceb/vim-orgmode',            { 'for': 'org' }
 Plug 'vim-scripts/utl.vim'
 
-" End setup of junegunn/vim-plug
 call plug#end()
 filetype plugin indent on
 syntax enable
 
-" GUI
+" --- GUI ---
+
 set guioptions-=r
 set guioptions-=m
 set guioptions-=L
@@ -57,12 +68,11 @@ set colorcolumn=81
 set textwidth=80
 set visualbell
 set list listchars=tab:▸\ ,trail:·,extends:»,precedes:«
-"set columns=100                        " set width of floating window.
-"set lines=67                           " set height of floating window.
-set cmdheight=1                        " set command window to hieght of 1.
-set scrolloff=5                        " set offset on zt
+set cmdheight=1
+set scrolloff=5
 
-" Indentation
+" --- Indentation ---
+
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -71,92 +81,85 @@ set smartindent
 set autoindent
 set nosmarttab
 
-" Search
+" --- Search ---
+
 set incsearch
 set hlsearch
 set ignorecase
 
-" Behaviors
-set backspace=2                        " delete over linebreaks
-set whichwrap+=<,>,h,l,[,]             " movements over linebreaks
-set report=0                           " count lines yanked/deleted
+" --- Behaviors ---
+
+set backspace=2
+set whichwrap+=<,>,h,l,[,]
+set report=0
 let g:mapleader = ","
-set foldmethod=indent                  " fold based on indent
-set nofoldenable                       " don't fold by default
-au FileType org setlocal foldenable    " enable fold for org-mode
-set foldlevel=1                        " only close/open one foldlevel at a time
+set foldmethod=indent
+set nofoldenable
+set foldlevel=1
+au FileType org setlocal foldenable
+
 augroup view
-autocmd BufWinLeave * silent! mkview   " save view when closing buffer
-autocmd BufWinEnter * silent! loadview " load view when opening buffer
+  autocmd BufWinLeave * silent! mkview
+  autocmd BufWinEnter * silent! loadview
 augroup END
 
-" Mappings
-                                       " change pwd to file location.
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
-                                       " move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-                                       " search lint errors
-nnoremap <silent> <m-p> :lprevious <CR>
-nnoremap <silent> <m-n> :lnext <CR>
+" --- Backup & swap (disabled) ---
 
-if has("win32")                        " open .vimrc & then load.
-    nmap <leader>v :e $myvimrc
-    nmap <leader>s :so $myvimrc
-else
-    nmap <leader>v :e $MYVIMRC
-    nmap <leader>s :so $MYVIMRC
-endif
-                                       " format json in current buffer or selection
-map <Leader>n :%!python -m json.tool<CR>
+set nobackup
+set nowritebackup
+set noswapfile
 
-" Backup Files [Disabled]
-set nobackup                           " do not keep backups after close
-set nowritebackup                      " do not keep a backup while working
-"set backupdir=$HOME/.vim/backup        " store backups under ~/.vim/backup
-"set backupcopy=yes                     " keep attributes of original file
-"set backupskip=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
+" --- Style ---
 
-" Swap Files [Disabled]
-set noswapfile                         " don't keep swp files either
-"set directory=~/.vim/swap,~/tmp,.      " keep swp files under ~/.vim/swap
-
-" Powerline (TODO deprecate for airline)
 set laststatus=2
-set rtp+=/home/drobati/.local/lib/python2.7/site-packages/powerline/bindings/vim
-
-" Style
-set t_Co=256                           " XTerm 256 color support.
+set t_Co=256
 if has('gui_running')
     set macligatures
     set guifont=DankMono-Regular:h17
     set transparency=15
     set blurradius=10
-    "set guifont=Fira\ Code:h12
-    "set guifont=DejaVu\ Sans\ Mono\ 10
 else
     set guifont=DejaVu\ Sans\ Mono\ 10
 endif
 colorscheme Tomorrow-Night-Eighties
 let g:airline_theme='tomorrow'
 
-" -------------------------
-" LANGUAGE SPECIFIC OPTIONS
-" -------------------------
+" --- Mappings ---
+
+" Change pwd to current file location
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+
+" Move visual block up/down
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Navigate lint errors
+nnoremap <silent> <m-p> :lprevious<CR>
+nnoremap <silent> <m-n> :lnext<CR>
+
+" Edit/reload vimrc
+if has("win32")
+    nmap <leader>v :e $myvimrc
+    nmap <leader>s :so $myvimrc
+else
+    nmap <leader>v :e $MYVIMRC
+    nmap <leader>s :so $MYVIMRC
+endif
+
+" Format JSON in buffer/selection
+map <Leader>n :%!python -m json.tool<CR>
+
+" --- Filetypes ---
 
 au BufNewFile,BufRead VagrantFile* set filetype=ruby
 au BufNewFile,BufRead Dockerfile*  set filetype=dockerfile
 au BufNewFile,BufRead *.journal    set filetype=journal
 au BufNewFile,BufRead *.md         set filetype=markdown
 
-" C++
 set tags=./tags;/
 
-" -----------------------
-" PLUGIN SPECIFIC OPTIONS
-" -----------------------
+" --- Plugin config: ALE ---
 
-" ale
 let g:ale_fixers = {
 \    '*': ['remove_trailing_lines', 'trim_whitespace'],
 \    'javascript': ['prettier'],
@@ -165,22 +168,24 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_global = 1
 let g:ale_javascript_prettier_options = '--print-width 100 --tab-width 4 --single-quote --trailing-comma es5'
-
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '!'
 highlight ALEErrorSign ctermbg=NONE ctermfg=red guibg=NONE guifg=red
 highlight ALEWarningSign ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
 
-" Airline
+" --- Plugin config: Airline ---
+
 let g:airline_left_sep = ' '
 let g:airline_right_sep = ' '
 let g:airline#extensions#ale#enabled = 1
 
-" EasyAlign
+" --- Plugin config: EasyAlign ---
+
 vmap <Enter> <Plug>(EasyAlign)
 
-" EasyMotion
-let g:EasyMotion_do_mapping = 0       " Disable default mappings
+" --- Plugin config: EasyMotion ---
+
+let g:EasyMotion_do_mapping = 0
 nmap s <Plug>(easymotion-bd-w)
 nmap t <Plug>(easymotion-t2)
 map  / <Plug>(easymotion-sn)
@@ -191,54 +196,57 @@ map <Leader>l <Plug>(easymotion-lineforward)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
-let g:EasyMotion_startofline      = 0  " keep cursor column when JK motion
-let g:EasyMotion_smartcase        = 1  " type `l` and match `l`&`L`
-let g:EasyMotion_use_smartsign_us = 1  " type `3` and match `3`&`#`
+let g:EasyMotion_startofline      = 0
+let g:EasyMotion_smartcase        = 1
+let g:EasyMotion_use_smartsign_us = 1
 
-" Gist
-"" sudo apt-get install xclip
+" --- Plugin config: Gist ---
+
 let g:gist_clip_command            = 'xclip -selection clipboard'
 let g:gist_detect_filetype         = 1
 let g:gist_open_browser_after_post = 1
-let g:gist_browser_command         = 'firefox %URL%'
+let g:gist_browser_command         = 'chrome %URL%'
 let g:gist_show_privates           = 1
 let g:gist_post_private            = 1
 
-" Git-Gutter
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '±'
-let g:gitgutter_sign_removed = '-'
+" --- Plugin config: GitGutter ---
+
+let g:gitgutter_sign_added = '▍'
+let g:gitgutter_sign_modified = '▍'
+let g:gitgutter_sign_removed = '▍'
+let g:gitgutter_sign_removed_first_line = '▍'
+let g:gitgutter_sign_removed_above_and_below = '▍'
+let g:gitgutter_sign_modified_removed = '▍'
 highlight GitGutterAdd    guifg=#009900 ctermfg=2
 highlight GitGutterChange guifg=#bbbb00 ctermfg=3
 highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 
-" Syntastic
-"let g:syntastic_check_on_open   = 1
-"let g:syntastic_error_symbol    = 'X'
-"let g:syntastic_warning_symbol  = '!'
-"let g:syntastic_auto_loc_list   = 2
-"let g:syntastic_loc_list_height = 5
+" --- Plugin config: Fugitive ---
 
-" Fugitive
 nnoremap <leader>gs :Gstatus<cr>
 
-" Tagbar
+" --- Plugin config: Tagbar ---
+
 nnoremap <F8> :TagbarToggle<CR>
 
-" Gundo
+" --- Plugin config: Gundo ---
+
 nnoremap <F5> :GundoToggle<CR>
 
-" rainbow
+" --- Plugin config: Rainbow ---
+
 let g:rainbow_active = 1
 
-" Ultisnips
+" --- Plugin config: UltiSnips ---
+
 let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit           = "vertical"
 let g:ultisnips_python_style       = "google"
 
-" Others
+" --- Plugin config: Goyo (focus mode) ---
+
 function! s:goyo_enter()
   NumbersDisable
   set nonumber
